@@ -3,11 +3,31 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
     <title>Guia perguntas</title>
   </head>
   <body>
-    <h1>Guia perguntas!</h1>
-    <hr />
-    <h3>Lista de perguntas</h3>
+    <div>
+      <h1 class="text-3xl font-bold underline">Guia perguntas!</h1>
+      <hr />
+      <h3>Lista de perguntas</h3>
+
+      <p>Nome: <%= nome %></p>
+      <p>Linguagem favorita: <%= lang %></p>
+
+      <% if(msg){ %>
+      <h3>Isso é uma msg de erro</h3>
+      <%} else { %>
+      <h3>Tudo certo meu truta!</h3>
+      <%} %>
+
+      <br />
+
+      <% produtos.forEach(function(produto) { %>
+      <hr />
+      <h1 class="text-3xl font-bold"><%= produto.nome %></h1>
+      <h4><%= produto.preco %></h4>
+      <% }) %>
+    </div>
   </body>
 </html>
