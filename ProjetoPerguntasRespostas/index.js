@@ -4,6 +4,9 @@ const app = express();
 // configuração do EJS
 app.set("view engine", "ejs");
 
+// configuração para carregar arquivos estaticos
+app.use(express.static("public"));
+
 // roteamento
 app.get("/:nome/:lang", (req, res) => {
   var nome = req.params.nome;
