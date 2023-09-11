@@ -4,4 +4,5 @@ Tecnologias utilizadas:
 => MySQL
 => EJS (Para trabalhar com roteamento)
 => Nodemon (Para executar o Node - Instalar Globalmente)
-=> CDN do Tailwind
+=> Sequelize para edição dados no BD
+=> mysql2 para utilizar o MySql junto com o Sequelize
