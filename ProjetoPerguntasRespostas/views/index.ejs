@@ -2,7 +2,24 @@
 
 <body>
   <%- include ('partials/navbar.ejs'); %>
-  <h1>Estilo do boostrap</h1>
+  <div class="container">
+    <h1>Perguntas</h1>
+    <a href="/perguntar" class="btn btn-dark">Perguntar</a>
+    <br />
+    <% perguntas.forEach(pergunta => { %>
+    <br />
+    <div class="card">
+      <div class="card-body">
+        <p><%= pergunta.titulo %></p>
+      </div>
+      <div class="card-footer">
+        <a href="/pergunta/<%= pergunta.id %>">
+          <button class="btn btn-dark">Responder</button>
+        </a>
+      </div>
+    </div>
+    <% }) %>
+  </div>
 </body>
 
 <%- include ('partials/footer.ejs'); %>
