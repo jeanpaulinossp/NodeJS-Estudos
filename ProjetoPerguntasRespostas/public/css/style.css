@@ -2,6 +2,36 @@ body {
   background-color: #eceff1;
 }
 
+input,
+textarea {
+  margin-bottom: 10px;
+}
+
+.buttonEnviar {
+  margin-bottom: 10px;
+}
+
 #formulario-pergunta {
   margin-top: 5vh;
+}
+
+.card-body {
+  margin: 0;
+  padding: 5px 10px 0 10px;
+}
+
+.name {
+  font-size: 28px;
+  font-weight: 500;
+  padding: 0px;
+  margin: 0px;
+}
+
+.time {
+  font-size: 10px;
+  padding: 0px;
+}
+
+.titulo {
+  padding-top: 10px;
 }

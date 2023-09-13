@@ -40,10 +40,12 @@ app.get("/perguntar", (req, res) => {
 });
 
 app.post("/salvarpergunta", (req, res) => {
+  var nome = req.body.nome;
   var titulo = req.body.titulo;
   var descricao = req.body.descricao;
   // o create é para salvar a pergunta no BD
   Pergunta.create({
+    nome: nome,
     titulo: titulo,
     descricao: descricao,
   }).then(() => {
@@ -73,9 +75,11 @@ app.get("/pergunta/:id", (req, res) => {
 });
 
 app.post("/responder", (req, res) => {
+  var nome = req.body.nome;
   var corpo = req.body.corpo;
   var perguntaId = req.body.pergunta;
   Resposta.create({
+    nome: nome,
     corpo: corpo,
     perguntaId: perguntaId,
   }).then(() => {

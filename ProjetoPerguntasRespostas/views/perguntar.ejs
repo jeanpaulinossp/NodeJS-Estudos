@@ -8,6 +8,13 @@
       </div>
       <div class="card-body">
         <form method="post" action="/salvarpergunta">
+          <label>Seu nome</label>
+          <input
+            type="text"
+            placeholder="Nome"
+            class="form-control"
+            name="nome"
+          />
           <label>Título</label>
           <input
             type="text"
@@ -15,15 +22,14 @@
             class="form-control"
             name="titulo"
           />
-          <br />
           <label>Descrição</label>
           <textarea
             placeholder="Descreva sua pergunta aqui"
             class="form-control"
             name="descricao"
+            rows="4"
           ></textarea>
-          <br />
-          <button class="btn btn-dark">Enviar</button>
+          <button class="btn btn-dark buttonEnviar">Enviar</button>
         </form>
       </div>
     </div>

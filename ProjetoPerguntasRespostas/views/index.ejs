@@ -3,14 +3,20 @@
 <body>
   <%- include ('partials/navbar.ejs'); %>
   <div class="container">
-    <h1>Perguntas</h1>
-    <a href="/perguntar" class="btn btn-dark">Perguntar</a>
+    <% function formatarData(data) { %> <% const dataFormatada = new Date(data);
+    %> <% const options = { year: 'numeric', month: 'long', day: 'numeric',
+    hour: '2-digit', minute: '2-digit', second: '2-digit' }; %>
     <br />
+    <% return dataFormatada.toLocaleDateString('pt-BR', options); %> <% } %>
+    <br />
+    <h1>Perguntas</h1>
     <% perguntas.forEach(pergunta => { %>
     <br />
     <div class="card">
       <div class="card-body">
-        <p><%= pergunta.titulo %></p>
+        <span class="name"><%= pergunta.nome %></span>
+        <span class="time"><%= formatarData(pergunta.createdAt) %></span>
+        <p class="titulo"><%= pergunta.titulo %></p>
       </div>
       <div class="card-footer">
         <a href="/pergunta/<%= pergunta.id %>">

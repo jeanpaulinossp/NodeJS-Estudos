@@ -3,10 +3,22 @@
 <body>
   <%- include ('partials/navbar.ejs'); %>
   <div class="container">
-    <h1><%= pergunta.titulo %></h1>
+    <% function formatarData(data) { %> <% const dataFormatada = new Date(data);
+    %> <% const options = { year: 'numeric', month: 'long', day: 'numeric',
+    hour: '2-digit', minute: '2-digit', second: '2-digit' }; %>
+    <br />
+    <% return dataFormatada.toLocaleDateString('pt-BR', options); %> <% } %>
+    <br />
+    <h2><%= pergunta.titulo %></h2>
     <p><%= pergunta.descricao %></p>
     <hr />
     <form method="POST" action="/responder">
+      <input
+        type="text"
+        placeholder="Seu Nome"
+        class="form-control"
+        name="nome"
+      />
       <textarea
         placeholder="Digite sua resposta"
         class="form-control"
@@ -14,7 +26,6 @@
         rows="4"
       ></textarea>
       <input type="hidden" name="pergunta" value="<%= pergunta.id %>" />
-      <br />
       <button type="submit" class="btn btn-dark">Responder</button>
     </form>
     <hr />
@@ -23,7 +34,9 @@
     <br />
     <div class="card">
       <div class="card-body">
-        <p><%= resposta.corpo %></p>
+        <span class="name"><%= resposta.nome %></span>
+        <span class="time"><%= formatarData(resposta.createdAt) %></span>
+        <p class="titulo"><%= resposta.corpo %></p>
       </div>
     </div>
     <% }) %>
