@@ -2,6 +2,9 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const connection = require("./database/database");
 
+const categoriesRoutes = require("./routes/CategoriesRoutes");
+const articlesRoutes = require("./routes/ArticlesRoutes");
+
 const app = express();
 
 // View engine
@@ -23,6 +26,9 @@ connection
   .catch((err) => {
     console.log(err);
   });
+
+app.use("/", categoriesRoutes);
+app.use("/", articlesRoutes);
 
 app.get("/", (req, res) => {
   res.render("index");
