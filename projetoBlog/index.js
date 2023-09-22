@@ -5,6 +5,9 @@ const connection = require("./database/database");
 const categoriesRoutes = require("./routes/CategoriesRoutes");
 const articlesRoutes = require("./routes/ArticlesRoutes");
 
+const Article = require("./articles/Article");
+const Category = require("./categories/Category");
+
 const app = express();
 
 // View engine

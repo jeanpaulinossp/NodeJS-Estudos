@@ -12,4 +12,7 @@ const Category = connection.define("categories", {
   },
 });
 
+// Essa sync deve ser feito só na primeira vez, para criação da tabela já com os relacionamentos
+// Category.sync({ force: true });
+
 module.exports = Category;
