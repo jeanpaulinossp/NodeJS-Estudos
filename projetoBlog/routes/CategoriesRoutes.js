@@ -16,7 +16,7 @@ routerCategories.post("/categories/save", (req, res) => {
       title: title,
       slug: slugify(title),
     }).then(() => {
-      res.redirect("/");
+      res.redirect("/admin/categories");
     });
   } else {
     res.redirect("/admin/categories/new");
@@ -31,11 +31,8 @@ routerCategories.get("/admin/categories", (req, res) => {
 
 routerCategories.post("/categories/delete", (req, res) => {
   var id = req.body.id;
-  console.log("esse é o id", id);
   if (id !== undefined) {
-    console.log("entrei aqui primeiro");
     if (!isNaN(id)) {
-      console.log("entrei aqui depois");
       Category.destroy({
         where: {
           id: id,
@@ -49,6 +46,45 @@ routerCategories.post("/categories/delete", (req, res) => {
   } else {
     res.redirect("/admin/categories");
   }
+});
+
+routerCategories.get("/admin/categories/edit/:id", (req, res) => {
+  var id = req.params.id;
+
+  if (isNaN(id)) {
+    res.redirect("/admin/categories");
+  }
+
+  Category.findByPk(id)
+    .then((category) => {
+      if (category !== undefined) {
+        res.render("admin/categories/edit", { category: category });
+      } else {
+        res.redirect("/admin/categories");
+      }
+    })
+    .catch((err) => {
+      res.redirect("/admin/categories");
+    });
+});
+
+routerCategories.post("/categories/update", (req, res) => {
+  var id = req.body.id;
+  var title = req.body.title;
+
+  Category.update(
+    {
+      title: title,
+      slug: slugify(title),
+    },
+    {
+      where: {
+        id: id,
+      },
+    }
+  ).then(() => {
+    res.redirect("/admin/categories");
+  });
 });
 
 module.exports = routerCategories;
