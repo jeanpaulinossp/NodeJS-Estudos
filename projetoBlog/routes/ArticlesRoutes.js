@@ -52,4 +52,21 @@ routerArticles.post("/articles/delete", (req, res) => {
   }
 });
 
+routerArticles.get("/admin/articles/edit/:id", (req, res) => {
+  var id = req.params.id;
+  Article.findByPk(id)
+    .then((article) => {
+      if (article !== undefined) {
+        Category.findAll().then((categories) => {
+          res.render("admin/articles/edit", { categories: categories, article: article });
+        });
+      } else {
+        res.redirect("/");
+      }
+    })
+    .catch((err) => {
+      res.redirect("/");
+    });
+});
+
 module.exports = routerArticles;

@@ -1,0 +1,76 @@
+<%- include('../../partials/header.ejs') %> <%- include('../../partials/navbar.ejs') %>
+
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <h2>Editar Artigo</h2>
+    </div>
+    <div class="card-body">
+      <form method="post" action="/articles/save">
+        <input
+          class="form-control"
+          type="text"
+          name="title"
+          placeholder="Defina o título do artigo"
+          value="<%= article.title %>"
+        />
+        <textarea
+          class="form-control"
+          placeholder="Escreva o artigo aqui"
+          name="body"
+          id="article"
+          cols="30"
+          rows="10"
+        >
+<%- article.body %></textarea
+        >
+        <label>Categoria</label>
+        <select name="category" class="form-control">
+          <% categories.forEach((category) => { %>
+          <option value="<%= category.id %>"><%= category.title %></option>
+          <% }) %>
+        </select>
+        <button class="btn btn-dark">Atualizar</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%- include('../../partials/footer.ejs') %>
+
+<script src="/tinymce/tinymce.min.js"></script>
+
+<script>
+  tinymce.init({
+    selector: "#article",
+    height: 300,
+    language: "pt_BR",
+    plugins: [
+      "advlist",
+      "autolink",
+      "lists",
+      "link",
+      "image",
+      "charmap",
+      "preview",
+      "anchor",
+      "searchreplace",
+      "visualblocks",
+      "code",
+      "fullscreen",
+      "insertdatetime",
+      "media",
+      "table",
+      "help",
+      "wordcount",
+      "emoticons",
+    ],
+
+    toolbar:
+      "undo redo | blocks | " +
+      "bold italic backcolor | alignleft aligncenter " +
+      "alignright alignjustify | bullist numlist outdent indent | " +
+      "removeformat | help",
+    content_style: "body { font-family:Helvetica,Arial,sans-serif; font-size:16px }",
+  });
+</script>
