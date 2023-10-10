@@ -11,6 +11,18 @@
     </div>
 
     <% }) %>
+    <div class="row">
+      <div class="col col-12">
+        <a style="float: left; text-decoration: none" href="/articles/page/<%= result.page - 1 %>"
+          >Anterior</a
+        >
+        <% if (result.next) { %>
+        <a style="float: right; text-decoration: none" href="/articles/page/<%= result.page + 1 %>"
+          >Próxima</a
+        >
+        <% } %>
+      </div>
+    </div>
   </div>
 </body>
 

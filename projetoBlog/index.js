@@ -4,9 +4,11 @@ const connection = require("./database/database");
 
 const categoriesRoutes = require("./routes/CategoriesRoutes");
 const articlesRoutes = require("./routes/ArticlesRoutes");
+const usersRoutes = require("./routes/UserAuth");
 
 const Article = require("./articles/Article");
 const Category = require("./categories/Category");
+const Users = require("./auth/Users");
 
 const app = express();
 
@@ -32,10 +34,12 @@ connection
 
 app.use("/", categoriesRoutes);
 app.use("/", articlesRoutes);
+app.use("/", usersRoutes);
 
 app.get("/", (req, res) => {
   Article.findAll({
     order: [["id", "DESC"]],
+    limit: 4,
   }).then((articles) => {
     Category.findAll().then((categories) => {
       res.render("index", { articles: articles, categories: categories });

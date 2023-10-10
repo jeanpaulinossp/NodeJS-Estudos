@@ -101,14 +101,15 @@ routerArticles.get("/articles/page/:num", (req, res) => {
   var offset = 0;
 
   if (isNaN(page) || page === 1) {
-    offset = 0;
+    res.redirect("/");
   } else {
-    offset = page * 4;
+    offset = (page - 1) * 4;
   }
 
   Article.findAndCountAll({
     limit: 4,
     offset: offset,
+    order: [["id", "DESC"]],
   }).then((articles) => {
     var next;
     if (offset + 4 >= articles.count) {
@@ -116,7 +117,7 @@ routerArticles.get("/articles/page/:num", (req, res) => {
     } else {
       next = true;
     }
-    var result = { next: next, articles: articles };
+    var result = { page: page, next: next, articles: articles };
     Category.findAll().then((categories) => {
       res.render("admin/articles/page", { result: result, categories: categories });
     });
