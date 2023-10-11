@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const connection = require("./database/database");
+const session = require("express-session");
 
 const categoriesRoutes = require("./routes/CategoriesRoutes");
 const articlesRoutes = require("./routes/ArticlesRoutes");
@@ -15,12 +16,20 @@ const app = express();
 // View engine
 app.set("view engine", "ejs");
 
+// Sessions
+app.use(
+  session({
+    secret: "MSNIOhioh8UBUOh9nI",
+    cookie: { maxAge: 30000000 },
+  })
+);
+
 // Static
 app.use(express.static("public"));
 
 // Body Parser
 app.use(bodyParser.urlencoded({ extended: false }));
-app.unsubscribe(bodyParser.json());
+app.use(bodyParser.json());
 
 // Database
 connection
@@ -35,6 +44,21 @@ connection
 app.use("/", categoriesRoutes);
 app.use("/", articlesRoutes);
 app.use("/", usersRoutes);
+
+app.get("/sessions", (req, res) => {
+  req.session.user = {
+    username: "Jean Paulino",
+    email: "jean.ssparaiso@gmail.com",
+    id: 0,
+  };
+  res.send("Sessão gerada!");
+});
+
+app.get("/leitura", (req, res) => {
+  res.json({
+    user: req.session.user,
+  });
+});
 
 app.get("/", (req, res) => {
   Article.findAll({
@@ -55,7 +79,8 @@ app.get("/:slug", (req, res) => {
     },
   })
     .then((article) => {
-      if (article !== undefined) {
+      console.log(article);
+      if (article != undefined) {
         Category.findAll().then((categories) => {
           res.render("article", { article: article, categories: categories });
         });

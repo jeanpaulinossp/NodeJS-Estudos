@@ -1,16 +1,14 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container d-flex justify-content-start">
-    <a class="navbar-brand" href="/">GuiaBlog</a>
+    <span class="navbar-brand" href="">GuiaBlog</span>
 
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
         <a class="nav-link" href="/">Home</a>
       </li>
-      <% categories.forEach(category => { %>
       <li class="nav-item">
-        <a class="nav-link" href="/category/<%= category.slug %>"><%= category.title %></a>
+        <a class="nav-link" href="/login">Login</a>
       </li>
-      <% }) %>
     </ul>
   </div>
 </nav>

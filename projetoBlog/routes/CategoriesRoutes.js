@@ -1,15 +1,16 @@
 const express = require("express");
 const routerCategories = express.Router();
 const Category = require("../categories/Category");
+const adminAuth = require("../middlwares/adminAuth");
 
 // slugify otimiza a string para que seja passado como parametro na url, tirando acentos, espaços e etc
 const slugify = require("slugify");
 
-routerCategories.get("/admin/categories/new", (req, res) => {
+routerCategories.get("/admin/categories/new", adminAuth, (req, res) => {
   res.render("admin/categories/new");
 });
 
-routerCategories.post("/categories/save", (req, res) => {
+routerCategories.post("/categories/save", adminAuth, (req, res) => {
   var title = req.body.title;
   if (title !== undefined || title === "") {
     Category.create({
@@ -23,13 +24,13 @@ routerCategories.post("/categories/save", (req, res) => {
   }
 });
 
-routerCategories.get("/admin/categories", (req, res) => {
+routerCategories.get("/admin/categories", adminAuth, (req, res) => {
   Category.findAll().then((categories) => {
     res.render("admin/categories/index", { categories: categories });
   });
 });
 
-routerCategories.post("/categories/delete", (req, res) => {
+routerCategories.post("/categories/delete", adminAuth, (req, res) => {
   var id = req.body.id;
   if (id !== undefined) {
     if (!isNaN(id)) {
@@ -48,7 +49,7 @@ routerCategories.post("/categories/delete", (req, res) => {
   }
 });
 
-routerCategories.get("/admin/categories/edit/:id", (req, res) => {
+routerCategories.get("/admin/categories/edit/:id", adminAuth, (req, res) => {
   var id = req.params.id;
 
   if (isNaN(id)) {
@@ -68,7 +69,7 @@ routerCategories.get("/admin/categories/edit/:id", (req, res) => {
     });
 });
 
-routerCategories.post("/categories/update", (req, res) => {
+routerCategories.post("/categories/update", adminAuth, (req, res) => {
   var id = req.body.id;
   var title = req.body.title;
 
