@@ -1,4 +1,4 @@
-Nome,Curso,Categoria,Tipo
-Jean Paulino,Formação NodeJS,NodeJS,1
-Jean Paulino 2,Formação ReactJS,ReactJS,2
-Vanessa Paulino,Formação Angular,Angular,3
+ID,Nome,Curso,Categoria,Andamento
+1,Jean,Formação NodeJS,NodeJS,50%
+2,João,Formação ReactJS,ReactJS,100%
+3,Maria,Formação Angular,Angular,10%
