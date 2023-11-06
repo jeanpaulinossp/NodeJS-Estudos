@@ -10,7 +10,7 @@ function createGame() {
   };
 
   axios
-    .post("http://localhost:3002/game", game)
+    .post("http://localhost:3002/game", game, axiosConfig)
     .then((res) => {
       if (res.status === 200) {
         alert("Game cadastrado!");
@@ -24,7 +24,7 @@ function createGame() {
 function deleteGame(listItem) {
   let id = listItem.getAttribute("data-id");
   axios
-    .delete("http://localhost:3002/game/" + id)
+    .delete("http://localhost:3002/game/" + id, axiosConfig)
     .then((res) => {
       alert("Game Deletado com Sucesso!");
     })
@@ -60,7 +60,7 @@ function updateGame() {
   let id = Number(idInput.value);
 
   axios
-    .put("http://localhost:3002/game/" + id, game)
+    .put("http://localhost:3002/game/" + id, game, axiosConfig)
     .then((res) => {
       if (res.status === 200) {
         alert("Game atualizado!");
@@ -70,3 +70,32 @@ function updateGame() {
       console.log(err);
     });
 }
+
+function login(event) {
+  event.preventDefault();
+  let emailField = document.getElementById("email");
+  let passwordField = document.getElementById("password");
+
+  let email = emailField.value;
+  let password = passwordField.value;
+
+  axios
+    .post("http://localhost:3002/auth/", {
+      email,
+      password,
+    })
+    .then((res) => {
+      const token = res.data.token;
+      localStorage.setItem("token", token);
+      axiosConfig.headers.Authorization = "Bearer " + localStorage.getItem("token");
+    })
+    .catch((err) => {
+      alert("Login inválido!");
+      console.log(err);
+    });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  const formElement = document.getElementById("formLogin");
+  formElement.addEventListener("submit", login);
+});

@@ -70,7 +70,7 @@ const DB = {
 };
 
 app.get("/games", auth, (req, res) => {
-  res.json({ user: req.loggedUser, games: DB.games });
+  res.json({ games: DB.games });
 });
 
 app.get("/game/:id", (req, res) => {
@@ -157,24 +157,20 @@ app.post("/auth", (req, res) => {
           { expiresIn: "24h" },
           (err, token) => {
             if (err) {
-              res.json({ err: "Falha interna." });
-              res.sendStatus(401).end();
+              res.status(401).json({ err: "Falha interna." }).end();
             } else {
-              res.json({ token: token });
+              res.status(200).json({ token: token }).end();
             }
           }
         );
       } else {
-        res.json({ err: "Credenciais inválidas." });
-        res.sendStatus(401).end();
+        res.status(401).json({ err: "Credenciais inválidas." }).end();
       }
     } else {
-      res.json({ err: "O email enviado não existe." });
-      res.sendStatus(404).end();
+      res.status(404).json({ err: "O email enviado não existe." }).end();
     }
   } else {
-    res.json({ err: "O email enviado é inválido." });
-    res.sendStatus(400).end();
+    res.status(400).json({ err: "O email enviado é inválido." }).end();
   }
 });
 

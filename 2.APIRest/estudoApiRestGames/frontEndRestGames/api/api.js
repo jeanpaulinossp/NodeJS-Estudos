@@ -1,10 +1,16 @@
+const axiosConfig = {
+  headers: {
+    Authorization: "Bearer " + localStorage.getItem("token"),
+  },
+};
+
 axios
-  .get("http://localhost:3002/games")
+  .get("http://localhost:3002/games", axiosConfig)
   .then((response) => {
-    const { data } = response;
+    const { games } = response.data;
     const list = document.getElementById("games");
-    if (data) {
-      data.map((game) => {
+    if (games) {
+      games.map((game) => {
         let item = document.createElement("li");
         item.setAttribute("data-id", game.id);
         item.setAttribute("data-title", game.title);
