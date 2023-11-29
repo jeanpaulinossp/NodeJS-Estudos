@@ -70,17 +70,59 @@ const DB = {
 };
 
 app.get("/games", auth, (req, res) => {
-  res.json({ games: DB.games });
+  var HATEOAS = [
+    {
+      href: "http://localhost:3002/game/0",
+      method: "DELETE",
+      rel: "delete_game",
+    },
+    {
+      href: "http://localhost:3002/game/0",
+      method: "GET",
+      rel: "get_game",
+    },
+    {
+      href: "http://localhost:3002/auth",
+      method: "POST",
+      rel: "login",
+    },
+  ];
+
+  res.json({ games: DB.games, _links: HATEOAS });
 });
 
 app.get("/game/:id", (req, res) => {
   let id = req.params.id;
+
+  var HATEOAS = [
+    {
+      href: "http://localhost:3002/game/" + id,
+      method: "DELETE",
+      rel: "delete_game",
+    },
+    {
+      href: "http://localhost:3002/game/" + id,
+      method: "PUT",
+      rel: "edit_game",
+    },
+    {
+      href: "http://localhost:3002/game/" + id,
+      method: "GET",
+      rel: "get_game",
+    },
+    {
+      href: "http://localhost:3002/games",
+      method: "GET",
+      rel: "get_all_games",
+    },
+  ];
+
   if (isNaN(id)) {
     res.sendStatus(400).end();
   } else {
     let game = DB.games.find((g) => g.id === parseInt(id));
     if (game !== undefined) {
-      res.json(game);
+      res.json({ game, _links: HATEOAS });
     } else {
       res.sendStatus(404).end();
     }
